@@ -1,0 +1,30 @@
+#include<iostream>
+#include<iomanip>
+#include<string>
+
+using namespace std;
+int main (){
+	int periodos;
+	
+	cout << "quantidade deperiodos:";
+	cin >> periodos;
+	
+	if (periodos <=0){
+		cout << "erro; a quantidade de periodos deve ser maioe que zero." << endl;
+		} else {
+			int anterior = 0;
+			int atual = 1;
+			
+			cout << "\nCrescimento previsto:\n";
+			
+			for (int i = 1; i <= periodos; i++){
+				cout << "periodo" << i << ":" << anterior <<"dispositivos" << endl;
+				
+				int proximo = anterior + atual;
+				anterior = atual;
+				atual = proximo;
+			  }
+			}
+			
+			return 0;
+		 }	
