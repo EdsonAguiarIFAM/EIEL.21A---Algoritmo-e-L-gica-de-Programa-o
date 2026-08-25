@@ -1,0 +1,37 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    // VARIÁVEIS
+    int quantP;
+    int numPass = 0; 
+    int numAtual = 1; 
+	
+    // INICIAL
+    cout << "Seja bem-vindo ao simulador de estimativa do crescimento de conexao de dispositivos conectados a rede experimental." << endl;
+    cout << endl << "Insira a quantidade de periodos: ";
+    cin >> quantP;
+	
+    if (quantP <= 0)
+    {
+        cout << "A quantidade de periodos deve ser maior que 0." << endl;
+    } else {
+        for (int i = 1; i <= quantP; i++) {
+            cout << "Periodo " << i << ": " << numPass << " ";
+			
+            if (numPass == 1) {
+                cout << "dispositivo." << endl;
+            } else {
+                cout << "dispositivos." << endl;
+            }
+
+            int proximo = numPass + numAtual;
+            numPass = numAtual;
+            numAtual = proximo;
+        }
+    }
+
+    return 0;
+}
