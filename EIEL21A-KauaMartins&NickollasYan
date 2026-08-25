@@ -1,0 +1,35 @@
+#include <iostream>
+
+using namespace std;
+
+int main() 
+{
+    int totalCiclos;
+
+    cout << "Seja bem-vindo ao simulador de estimativa do crescimento de conexao de dispositivos conectados a rede experimental.\n\n";
+    cout << "Insira a quantidade de periodos: ";
+    
+    if (!(cin >> totalCiclos) || totalCiclos <= 0) {
+        cout << "A quantidade de periodos deve ser maior que 0." << endl;
+        return 0;
+    }
+
+    int anterior = 0;
+    int atual = 1;
+    int contador = 1;
+
+    while (contador <= totalCiclos) {
+        int conexoes = anterior;
+        
+        cout << "Periodo " << contador << ": " << conexoes << " ";
+        cout << (conexoes == 1 ? "dispositivo." : "dispositivos.") << endl;
+
+        int proximo = anterior + atual;
+        anterior = atual;
+        atual = proximo;
+
+        contador++;
+    }
+
+    return 0;
+}
