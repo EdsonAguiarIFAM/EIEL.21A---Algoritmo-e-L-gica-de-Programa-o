@@ -1,0 +1,31 @@
+#include <iostream> 
+using namespace std;
+
+int main() { 
+  int periodos;
+
+  cout << "digite a quantidade de periodos que você deseja: ";
+  cin >> periodos;
+  // verificar se a quantidade de periodos é valida 
+  if (periodos <= 0) {
+    cout << "erro: a quantidade de periodos deve ser maior que zero! tente novamente." << endl;
+    return 0;
+    }
+
+  //primeiros dois valores da sequência de fibonacci
+  int anterior = 0;
+  int atual = 1; 
+
+  cout << "\nCrescimento previsto:" << endl;
+
+  // sequência de fibonacci
+  for (int i = 1; i <= periodos; i++){
+    cout << "periodo" << i <<": "
+    << anterior << "dispositivos" << endl;
+
+  int proximo = anterior + atual;
+  anterior = atual;
+  atual = proximo;
+  }
+return 0;
+  }
