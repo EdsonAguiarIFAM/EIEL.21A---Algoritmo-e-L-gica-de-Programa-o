@@ -1,0 +1,128 @@
+
+PARTE I - CONCEITUAL
+
+1. O que é estrutura de dados?
+É uma forma de organizar e armazenar dados na memória pra usar de forma eficiente. Ex: um vetor pra guardar as notas de 30 alunos, ou uma lista encadeada pra guardar músicas de uma playlist.
+
+2. O que é vetor?
+É uma coleção de elementos do mesmo tipo, armazenados em posições contíguas na memória e acessados por índice (começa em 0). Ex: `int v[5]` guarda 5 inteiros lado a lado.
+
+3. `int valores[5] = {4,8,12,16,20};`*
+a) `valores[0]` = 4
+b) `valores[3]` = 16
+c) O número 20 está no índice 4
+d) 5 elementos
+
+4. Diferença Vetor x Lista Encadeada
+Vetor: tamanho fixo, memória contígua, acesso direto por índice O(1).
+Lista: tamanho dinâmico, memória espalhada, acessa sequencialmente O(n), mas insere/remove fácil.
+
+5. O que é um nó?
+É a unidade da lista. Normalmente tem: 1) o dado (valor) e 2) um ponteiro `proximo` que aponta para o próximo nó.
+
+6. Função do ponteiro próximo?
+Ligar um nó ao outro, manter a sequência da lista. Sem ele a lista se quebra.
+
+7. Por que o último aponta para NULL?
+Para indicar o fim da lista. É o critério de parada pra não ficar em loop infinito.
+
+8. Vantagens:
+Vetor: Acesso rápido por índice O(1), cache-friendly, simples.
+Lista: Tamanho dinâmico (cresce/diminui), inserção/remoção no início/meio O(1) sem deslocar elementos.
+
+PARTE II - VETORES - CÓDIGOS EM C++
+
+9. Preenchimento e exibição
+#include <iostream>
+using namespace std;
+int main(){
+    int vet[10];
+    for(int i=0;i<10;i++){ cout<<"Digite v["<<i<<"]: "; cin>>vet[i]; }
+    cout<<"Valores: ";
+    for(int i=0;i<10;i++) cout<<vet[i]<<" ";
+}
+10. Maior e menor
+int vet[10]; // ler antes
+int maior=vet[0], menor=vet[0], pMaior=0, pMenor=0;
+for(int i=1;i<10;i++){
+    if(vet[i]>maior){ maior=vet[i]; pMaior=i; }
+    if(vet[i]<menor){ menor=vet[i]; pMenor=i; }
+}
+cout<<"Maior "<<maior<<" pos "<<pMaior<<" Menor "<<menor<<" pos "<<pMenor;
+11. Média das notas
+float notas[5], soma=0, maior, menor; int acima=0;
+for(int i=0;i<5;i++) cin>>notas[i];
+maior=menor=notas[0];
+for(int i=0;i<5;i++){ soma+=notas[i]; if(notas[i]>maior)maior=notas[i]; if(notas[i]<menor)menor=notas[i]; }
+float media=soma/5;
+for(int i=0;i<5;i++) if(notas[i]>media) acima++;
+cout<<"Media "<<media<<" Maior "<<maior<<" Menor "<<menor<<" Acima "<<acima;
+12. Pares e ímpares
+int vet[10], pares=0, impares=0;
+for(int i=0;i<10;i++){ cin>>vet[i]; if(vet[i]%2==0) pares++; else impares++; }
+cout<<"Pares: "<<pares<<" Impares: "<<impares;
+13. Busca em vetor
+int vet[10], busca, pos=-1;
+for(int i=0;i<10;i++) cin>>vet[i];
+cout<<"Buscar: "; cin>>busca;
+for(int i=0;i<10;i++) if(vet[i]==busca){ pos=i; break; }
+if(pos==-1) cout<<"Valor nao encontrado"; else cout<<"Encontrado na pos "<<pos;
+PARTE III - LISTAS
+
+14. Lista 10 -> 25 -> 30 -> 45 -> NULL
+a) Primeiro: 10
+b) Último: 45
+c) Depois do 25 vem o 30
+d) 4 nós
+e) Aponta para NULL (fim)
+
+15. Inserção
+Inicial: 10->20->30->NULL
+Inserir 5 no início: *5->10->20->30->NULL*
+Inserir 40 no final: *5->10->20->30->40->NULL*
+
+16. Remoção - 5->10->20->30->40->NULL*
+a) Remove 5: 10->20->30->40->NULL
+b) Remove 30: 10->20->40->NULL
+c) Remove 40: 10->20->NULL
+
+17. Inserir no início
+struct No{ int valor; No* proximo; };
+void inserirInicio(No*& inicio, int valor){
+    No* novo = new No();
+    novo->valor = valor;
+    novo->proximo = inicio;
+    inicio = novo;
+}
+18. Percorrer lista
+void listar(No* inicio){
+    No* atual = inicio;
+    while(atual!= nullptr){
+        cout<<atual->valor<<" -> ";
+        atual = atual->proximo;
+    }
+    cout<<"NULL";
+}
+19. Busca em lista
+bool buscar(No* inicio, int valor){
+    No* atual = inicio;
+    while(atual!= nullptr){
+        if(atual->valor == valor) return true;
+        atual = atual->proximo;
+    }
+    return false;
+}
+PARTE IV - DESAFIOS
+
+20. Sistema de notas com vetor - Junta tudo do 11 e 13.
+
+21. Cadastro com lista - menu completo* (código base)
+// Use as funcoes inserirInicio, listar, buscar
+// Remover: No* remover(No* inicio, int valor) -> acha e ajusta ponteiros
+// Contar: int contar(No* inicio){ int c=0; while... c++; return c; }
+// Menu com switch 1 a 5 e 0 sair em loop do/while
+22. Análise - Qual usar quando muda muito?*
+Lista Encadeada é mais adequada quando há muitas inserções/remoções.
+
+- Vetor: Vantagem acesso rápido O(1). Desvantagem inserir no meio precisa deslocar todos, tamanho fixo.
+- Lista: Vantagem inserção/remoção dinâmica O(1) no início, tamanho cresce conforme precisa. Desvantagem acesso sequencial O(n), gasta mais memória por causa dos ponteiros.
